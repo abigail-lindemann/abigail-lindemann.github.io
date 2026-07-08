@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Admin — Abigail Lindemann</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/css/main.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+  <style>
+    /* Admin-only layout — not part of the public design system's page templates. */
+    .admin-header {
+      border-bottom: 1px solid var(--border);
+      padding-block: var(--space-4);
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(11,11,18,0.92);
+      backdrop-filter: blur(10px);
+    }
+    .admin-header .container { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-3); }
+    .token-panel { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+    .token-status { font-family: var(--font-mono); font-size: var(--fs-xs); padding: 0.3em 0.7em; border-radius: 999px; border: 1px solid var(--border); }
+    .token-status.active { color: #34d399; border-color: #34d39955; background: #34d39915; }
+    .token-status.inactive { color: var(--text-dim); }
+    .token-panel input[type="password"] { width: 320px; max-width: 50vw; }
+    .tabs { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-6); border-bottom: 1px solid var(--border); padding-bottom: var(--space-4); }
+    .tab-btn {
+      background: none; border: 1px solid var(--border); border-radius: var(--radius-sm);
+      padding: var(--space-2) var(--space-4); color: var(--text-muted); cursor: pointer; font-size: var(--fs-sm);
+    }
+    .tab-btn.active { color: var(--text); border-color: var(--accent); box-shadow: var(--glow-sm); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .item-row {
+      display: flex; justify-content: space-between; align-items: flex-start; gap: var(--space-4);
+      border: 1px solid var(--border); border-radius: var(--radius-sm); padding: var(--space-4); margin-bottom: var(--space-3);
+    }
+    .item-row .meta { flex: 1; }
+    .item-row .actions { display: flex; gap: var(--space-2); flex-shrink: 0; }
+    .item-actions-top { display: flex; justify-content: flex-end; margin-bottom: var(--space-4); }
+    .editor-form { border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space-5); margin-top: var(--space-4); background: var(--surface); }
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+    @media (max-width: 860px) { .split { grid-template-columns: 1fr; } }
+    .preview-pane { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: var(--space-4); background: var(--surface-2); max-height: 500px; overflow-y: auto; }
+    .save-bar { display: flex; gap: var(--space-3); align-items: center; margin-top: var(--space-5); flex-wrap: wrap; }
+    .status-msg { font-size: var(--fs-sm); }
+    .status-msg.ok { color: #34d399; }
+    .status-msg.err { color: #f87171; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <header class="admin-header">
+    <div class="container">
+      <div class="brand">Admin<span>.</span>Console</div>
+      <div class="token-panel">
+        <span class="token-status inactive" id="token-status">Token inactive — download mode only</span>
+        <input type="password" id="token-input" placeholder="Fine-grained GitHub token (Contents r/w)">
+        <button class="btn btn-ghost" id="token-set-btn">Activate</button>
+        <button class="btn btn-danger" id="token-clear-btn">Clear token</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="padding-block: var(--space-6);">
+    <div class="field-row" style="margin-bottom: var(--space-5);">
+      <div class="field">
+        <label for="repo-owner">GitHub owner</label>
+        <input id="repo-owner" value="abigail-lindemann">
+      </div>
+      <div class="field">
+        <label for="repo-name">Repo name</label>
+        <input id="repo-name" value="abigail-lindemann.github.io">
+      </div>
+    </div>
+    <p class="hint">Token is kept in sessionStorage only — never saved to disk, never committed. It clears when you close this tab. Create a fine-grained PAT scoped to only this repo, Contents read/write.</p>
+
+    <div class="tabs" id="tabs">
+      <button class="tab-btn active" data-tab="profile">Profile</button>
+      <button class="tab-btn" data-tab="projects">Projects</button>
+      <button class="tab-btn" data-tab="experience">Experience</button>
+      <button class="tab-btn" data-tab="skills">Skills &amp; Certs</button>
+      <button class="tab-btn" data-tab="blog">Blog</button>
+      <button class="tab-btn" data-tab="raw">Raw JSON</button>
+    </div>
+
+    <section class="tab-panel active" id="tab-profile"></section>
+    <section class="tab-panel" id="tab-projects"></section>
+    <section class="tab-panel" id="tab-experience"></section>
+    <section class="tab-panel" id="tab-skills"></section>
+    <section class="tab-panel" id="tab-blog"></section>
+    <section class="tab-panel" id="tab-raw"></section>
+  </main>
+
+  <script src="/js/render.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

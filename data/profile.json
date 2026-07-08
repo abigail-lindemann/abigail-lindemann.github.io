@@ -1,0 +1,36 @@
+{
+  "name": "Abigail Lindemann",
+  "photo": "/images/headshot.jpg",
+  "tagline": "I take messy data and turn it into something people can actually use.",
+  "taglineAlternates": [
+    "Handed a graph, I'll tell you what it's actually saying.",
+    "Give me a graph nobody's made sense of yet — that's the fun part."
+  ],
+  "heroSubline": "Business Analytics & Data Science at Trinity — currently mapping Bexar County and building a database of 1.2 million research papers.",
+  "kicker": "Junior at Trinity University",
+  "about": {
+    "paragraphs": [
+      "Hey, I'm Abigail. I'm a junior at Trinity studying Business Analytics and Data Science, and most days that means being handed a pile of data nobody's made sense of yet and figuring out what it's actually saying. Lately that's a map of every housing-and-food-access overlap in Bexar County, and a database of 1.2 million research papers comparing Trinity against 93 peer and aspirant institutions. The [[projects]] has the real depth — how they got built, what broke, what I'd change."
+    ],
+    "aiNote": "Still building toward machine learning — not there yet, but I use AI constantly, and I'm certified in Anthropic's AI Fluency framework and Claude 101.",
+    "closing": "If any of this overlaps with what you're working on, my contact links are below."
+  },
+  "aspirations": {
+    "heading": "Where this is going",
+    "body": "There's something satisfying about being handed a graph and figuring out what it's actually telling you — that part hasn't changed. My working theory on where this goes: as AI takes over more of the analytical grunt work, someone still has to make the final call and keep an eye on what the model is doing. I want to be that person. I'm still exploring the exact lane — data science, analytics, something more AI-adjacent — and I'd rather be honest about that than pretend I've got it mapped out."
+  },
+  "personalBits": [
+    "Plays Women's Ultimate Frisbee at Trinity (hybrid cutter/handler)",
+    "Big movie watcher",
+    "Avid matcha drinker"
+  ],
+  "links": {
+    "email": "abigail.c.lindemann@gmail.com",
+    "linkedin": "linkedin.com/in/abigail-lindemann",
+    "github": "github.com/abigail-lindemann"
+  },
+  "home": {
+    "featuredProjectSlugs": ["mapping-housing-food-insecurity-san-antonio", "institutional-research-publication-pipeline"],
+    "latestPostsCount": 3
+  }
+}

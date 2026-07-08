@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post — Abigail Lindemann</title>
+  <meta name="description" id="meta-description" content="A post from Abigail Lindemann's blog.">
+  <meta property="og:title" id="meta-og-title" content="Abigail Lindemann's blog">
+  <meta property="og:description" id="meta-og-description" content="A post from Abigail Lindemann's blog.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/css/main.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-nav" id="site-nav"></header>
+
+  <main id="main">
+    <section>
+      <div class="container">
+        <article class="post-article" id="post-article">
+          <p class="text-muted">Loading…</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <script src="/js/render.js"></script>
+  <script src="/js/bg-network.js"></script>
+  <script src="/js/surreal.js"></script>
+  <script>
+    async function renderPost() {
+      const params = new URLSearchParams(window.location.search);
+      const slug = params.get('slug');
+      const articleEl = document.getElementById('post-article');
+      if (!slug) {
+        articleEl.innerHTML = '<p>No post specified. <a class="text-link" href="/blog.html">Back to blog</a></p>';
+        return;
+      }
+
+      let posts;
+      try {
+        posts = await fetchJSON('posts');
+      } catch (e) {
+        articleEl.innerHTML = '<p>Could not load posts.</p>';
+        return;
+      }
+      const meta = posts.find(p => p.slug === slug);
+      if (!meta) {
+        articleEl.innerHTML = '<p>Post not found. <a class="text-link" href="/blog.html">Back to blog</a></p>';
+        return;
+      }
+
+      document.title = `${meta.title} — Abigail Lindemann`;
+      document.getElementById('meta-description').setAttribute('content', meta.summary);
+      document.getElementById('meta-og-title').setAttribute('content', `${meta.title} — Abigail Lindemann`);
+      document.getElementById('meta-og-description').setAttribute('content', meta.summary);
+
+      let mdRes;
+      try {
+        mdRes = await fetch(`/posts/${slug}.md`);
+        if (!mdRes.ok) throw new Error('missing markdown file');
+      } catch (e) {
+        articleEl.innerHTML = '<p>Could not load this post\'s content.</p>';
+        return;
+      }
+      const md = await mdRes.text();
+      const rawHTML = marked.parse(md);
+      const cleanHTML = DOMPurify.sanitize(rawHTML);
+
+      articleEl.innerHTML = `
+        <header>
+          <h1>${escapeHTML(meta.title)}</h1>
+          <div class="post-meta">${escapeHTML(meta.displayDate || meta.date)}</div>
+          <div class="tags">${(meta.tags || []).map(t => `<span class="tag">${escapeHTML(t)}</span>`).join('')}</div>
+        </header>
+        <div class="post-body">${cleanHTML}</div>
+        <p class="mt-6"><a class="text-link" href="/blog.html">&larr; Back to blog</a></p>
+      `;
+    }
+
+    renderPost();
+  </script>
+</body>
+</html>

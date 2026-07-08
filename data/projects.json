@@ -1,0 +1,94 @@
+[
+  {
+    "slug": "mapping-housing-food-insecurity-san-antonio",
+    "title": "Mapping Housing and Food Insecurity in San Antonio",
+    "date": "2026-06",
+    "displayDate": "June 2026",
+    "summary": "A block-group-level map of Bexar County integrating five public datasets to find where housing cost burden and food access actually overlap.",
+    "motif": "map",
+    "stat": { "value": "1,139", "label": "block groups mapped" },
+    "detail": [
+      "Integrated 5 public datasets — Census ACS, USDA Food Desert Atlas, USDA SNAP retailers, and food bank / WIC clinic locations — across ~1,139 Bexar County block groups.",
+      "Built a composite housing insecurity score from renter cost burden, severe cost burden, and overcrowding.",
+      "Used a KD-tree spatial index to compute food-access distances at 1-mile and 0.5-mile thresholds.",
+      "Produced a 4-quadrant overlap map classifying every block group by housing and food-access status.",
+      "Automated data refreshes with 3 GitHub Actions pipelines, keeping ongoing maintenance under 1 hour a year.",
+      "Shipped as a live interactive Leaflet.js map on GitHub Pages."
+    ],
+    "tags": [
+      { "label": "Spatial Analysis", "cat": "research" },
+      { "label": "Leaflet.js", "cat": "web" },
+      { "label": "GitHub Actions", "cat": "web" },
+      { "label": "Data Visualization", "cat": "viz" }
+    ],
+    "links": { "live": "", "repo": "" },
+    "featured": true,
+    "status": "complete"
+  },
+  {
+    "slug": "its-comparative-benchmarking",
+    "title": "ITS Comparative Benchmarking",
+    "date": "2025-06",
+    "displayDate": "June 2025",
+    "summary": "Gap analysis of Trinity's IT services against 75 peer and aspirant universities, built for senior leadership.",
+    "motif": "bars",
+    "stat": { "value": "75", "label": "universities benchmarked" },
+    "detail": [
+      "Analyzed 35,000+ data points across 467 metrics from 75 universities.",
+      "Ran gap analysis against 38 peer schools and 26 aspirant schools.",
+      "Built 12 Power BI visualizations presented to senior leadership."
+    ],
+    "tags": [
+      { "label": "Institutional Research", "cat": "research" },
+      { "label": "Power BI", "cat": "viz" },
+      { "label": "Benchmarking", "cat": "research" }
+    ],
+    "links": { "live": "", "repo": "" },
+    "featured": false,
+    "status": "complete"
+  },
+  {
+    "slug": "division-performance-projection-swim-dive",
+    "title": "Division Performance Projection — Trinity Swim & Dive",
+    "date": "2025-04",
+    "displayDate": "April 2025",
+    "summary": "Projected conference-transition placement for Trinity Swim & Dive using 2025 STAC Championship results, used directly by the coaching staff.",
+    "motif": "trend",
+    "stat": { "value": "192", "label": "performance records analyzed" },
+    "detail": [
+      "Analyzed 192 performance records from the 2025 STAC Championship in Excel.",
+      "Built 5 Tableau visualizations projecting placement for the upcoming SAA conference transition.",
+      "Used by the coaching staff for planning."
+    ],
+    "tags": [
+      { "label": "Sports Analytics", "cat": "research" },
+      { "label": "Tableau", "cat": "viz" }
+    ],
+    "links": { "live": "", "repo": "" },
+    "featured": false,
+    "status": "complete"
+  },
+  {
+    "slug": "institutional-research-publication-pipeline",
+    "title": "Institutional Research Publication Pipeline",
+    "date": "2026",
+    "displayDate": "Ongoing",
+    "summary": "A data pipeline pulling and cleaning ~1.2 million works from the OpenAlex API to compare Trinity's research output against 93 peer and aspirant institutions.",
+    "motif": "flow",
+    "stat": { "value": "1.2M", "label": "works in the pipeline" },
+    "detail": [
+      "Built a pipeline pulling publication data from the OpenAlex API.",
+      "Cleaned and loaded ~1.2 million works into a database comparing Trinity against 93 peer and aspirant institutions.",
+      "Planned: an interactive web app for deans, chairs, and faculty, plus autonomous scheduled updates.",
+      "Presenting at Trinity's summer research symposium in late July 2026."
+    ],
+    "tags": [
+      { "label": "API Integration", "cat": "web" },
+      { "label": "Data Pipeline", "cat": "web" },
+      { "label": "Institutional Research", "cat": "research" }
+    ],
+    "links": { "live": "", "repo": "" },
+    "featured": true,
+    "status": "ongoing"
+  }
+]

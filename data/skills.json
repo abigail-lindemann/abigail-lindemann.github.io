@@ -1,0 +1,13 @@
+{
+  "technical": [
+    "Python", "SQL", "R", "Tableau", "Power BI", "Excel (MOS Expert certified)",
+    "Jupyter", "Git/GitHub (Actions, Pages)", "Leaflet.js", "API integration", "HTML/CSS/JS"
+  ],
+  "certifications": [
+    { "name": "Anthropic Claude 101", "date": "2026-06", "displayDate": "Jun 2026" },
+    { "name": "Anthropic AI Fluency: Framework & Foundations", "date": "2026-06", "displayDate": "Jun 2026" },
+    { "name": "Microsoft Excel Office Specialist 2019 – Expert", "date": "2025-12", "displayDate": "Dec 2025" },
+    { "name": "DataCamp Python Associate", "date": "2025-12", "displayDate": "Dec 2025" },
+    { "name": "NASBA Ethical Leadership", "date": "2025-10", "displayDate": "Oct 2025" }
+  ]
+}

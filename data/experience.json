@@ -1,0 +1,37 @@
+[
+  {
+    "type": "job",
+    "org": "Trinity University ITS",
+    "role": "Student Technical Support Worker",
+    "dates": "Jan 2025–Present",
+    "current": true,
+    "bullets": [
+      "Provides frontline technical support for 3,000+ students and faculty.",
+      "Resolves 70+ tickets with a 60% first-contact resolution rate.",
+      "Maintains the team's internal knowledge base.",
+      "Builds the weekly schedule for a 25-person student team, reducing scheduling conflicts by 45%.",
+      "Maintains a 5-star customer satisfaction rating."
+    ]
+  },
+  {
+    "type": "leadership",
+    "org": "TUWIC (Trinity University Women in Computing)",
+    "role": "President",
+    "dates": "2026–Present",
+    "current": true,
+    "note": "TUWIC welcomes students of all genders across majors.",
+    "bullets": [
+      "Leads TUWIC's flagship event, TECH Camp — a weekend camp bringing 20–30 middle school girls to campus to learn coding and explore STEM careers."
+    ]
+  },
+  {
+    "type": "leadership",
+    "org": "TUWIC (Trinity University Women in Computing)",
+    "role": "Vice President",
+    "dates": "Spring 2026",
+    "current": false,
+    "bullets": [
+      "Owned all volunteer operations for TECH Camp: recruitment, working-with-minors compliance with Risk Management/HR, shift scheduling, and day-of delegation."
+    ]
+  }
+]

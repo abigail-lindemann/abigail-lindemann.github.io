@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects — Abigail Lindemann</title>
+  <meta name="description" content="Data and analytics projects by Abigail Lindemann: spatial analysis, institutional research, sports analytics, and data pipelines.">
+  <meta property="og:title" content="Projects — Abigail Lindemann">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-nav" id="site-nav"></header>
+
+  <main id="main">
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">Work</span>
+          <h1>Projects</h1>
+          <p class="lede">Analysis and pipelines, roughly newest first.</p>
+        </div>
+        <div id="projects-list" class="grid grid-2"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <script src="/js/render.js"></script>
+  <script src="/js/bg-network.js"></script>
+  <script src="/js/surreal.js"></script>
+  <script>
+    async function renderProjects() {
+      const projects = await fetchJSON('projects');
+      const sorted = [...projects].sort((a, b) => new Date(b.date) - new Date(a.date));
+      document.getElementById('projects-list').innerHTML = sorted.map(projectDetail).join('');
+    }
+
+    function projectDetail(p) {
+      return `
+        <article class="card${p.featured ? ' card-featured' : ''}" id="${p.slug}">
+          ${p.motif ? `<div class="card-motif">${projectMotifSVG(p.motif)}</div>` : ''}
+          <span class="date">${escapeHTML(p.displayDate)}${p.status === 'ongoing' ? ' · <span class="badge-ongoing">Ongoing</span>' : ''}</span>
+          <h3>${escapeHTML(p.title)}</h3>
+          <p class="card-body">${escapeHTML(p.summary)}</p>
+          ${p.stat ? `<div class="card-stat"><span class="stat-value">${escapeHTML(p.stat.value)}</span><span class="stat-label">${escapeHTML(p.stat.label)}</span></div>` : ''}
+          <ul>${p.detail.map(d => `<li class="text-muted">${escapeHTML(d)}</li>`).join('')}</ul>
+          <div class="tags">${p.tags.map(t => `<span class="tag" data-cat="${t.cat}">${escapeHTML(t.label)}</span>`).join('')}</div>
+          <div class="card-links">
+            ${p.links.live ? `<a class="text-link" href="${p.links.live}" target="_blank" rel="noopener">Live site</a>` : ''}
+            ${p.links.repo ? `<a class="text-link" href="${p.links.repo}" target="_blank" rel="noopener">Repo</a>` : ''}
+          </div>
+        </article>
+      `;
+    }
+
+    renderProjects();
+  </script>
+</body>
+</html>
