@@ -49,9 +49,13 @@
     document.documentElement.addEventListener('pointerleave', () => glow.classList.remove('on'));
   }
 
-  /* ---- Scroll reveal: sections and cards surface as they enter view ---- */
-  const revealables = document.querySelectorAll('main section, .card');
-  if (!reduceMotion && 'IntersectionObserver' in window && revealables.length) {
+  /* ---- Scroll reveal: sections and cards surface as they enter view.
+     Skipped on the graph-world homepage — nothing scrolls there, and the
+     reveal transforms would fight the panel's own positioning. ---- */
+  const revealables = document.body.classList.contains('is-world')
+    ? []
+    : document.querySelectorAll('main section, .card');
+  if (!reduceMotion && 'IntersectionObserver' in window && revealables.length > 0) {
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
