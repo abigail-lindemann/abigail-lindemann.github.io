@@ -397,66 +397,6 @@ section { padding-block: var(--space-8); }
   border-radius: 999px;
 }
 
-/* ---- Full-screen intro journey (plays once per session, always skippable) ---- */
-.intro-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 200;
-  background: var(--bg);
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 900ms ease, visibility 900ms ease;
-  cursor: pointer;
-}
-.intro-overlay.hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-.intro-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-.intro-content {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-4);
-  padding-bottom: var(--space-9);
-  text-align: center;
-}
-.intro-hint {
-  font-family: var(--font-mono);
-  font-size: var(--fs-xs);
-  color: var(--text-dim);
-  letter-spacing: 0.06em;
-  animation: intro-pulse 2.4s ease-in-out infinite;
-}
-@keyframes intro-pulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
-}
-.intro-skip {
-  font-family: var(--font-mono);
-  font-size: var(--fs-sm);
-  color: var(--text);
-  background: none;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: var(--space-2) var(--space-5);
-  cursor: pointer;
-  transition: border-color var(--transition), box-shadow var(--transition);
-}
-.intro-skip:hover, .intro-skip:focus-visible {
-  border-color: var(--accent-2);
-  box-shadow: var(--glow-sm);
-}
-@media (prefers-reduced-motion: reduce) {
-  .intro-hint { animation: none; }
-}
-
 /* ---- Hero ---- */
 /* Fixed full-viewport data-network background — stays put while content scrolls over it */
 .bg-network {

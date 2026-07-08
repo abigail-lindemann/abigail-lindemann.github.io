@@ -1,8 +1,6 @@
-/* Shared engine for the data-network depth/tunnel effect: nodes with real
+/* Engine for the data-network depth/tunnel effect: nodes with real
    perspective drift toward the camera and respawn far away once passed.
-   Two configurations use this:
-   - the ambient page background (gentle idle drift, scroll adds warp bursts)
-   - the full-screen intro journey (continuous dramatic drift, denser field) */
+   Runs as the fixed background on every page. */
 
 function createNetworkTunnel(canvas, opts) {
   const options = Object.assign({
@@ -152,16 +150,10 @@ function createNetworkTunnel(canvas, opts) {
   };
 }
 
-/* Ambient page background: gentle at rest, scroll adds warp-speed bursts. */
+/* Ambient page background: the dense drifting field runs everywhere,
+   scroll adds warp-speed bursts, the pointer steers the parallax. */
 function initBgNetwork(canvasId) {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return null;
-  return createNetworkTunnel(canvas, { baseSpeed: 0.6, reactToScroll: true, reactToPointer: true, density: 9000, minNodes: 60, maxNodes: 160 });
-}
-
-/* Full-screen intro journey: continuously dramatic, denser field, no scroll dependency. */
-function initIntroTunnel(canvasId) {
-  const canvas = document.getElementById(canvasId);
-  if (!canvas) return null;
-  return createNetworkTunnel(canvas, { baseSpeed: 3.2, reactToScroll: false, density: 6000, minNodes: 90, maxNodes: 220, linkDist: 110 });
+  return createNetworkTunnel(canvas, { baseSpeed: 1.1, reactToScroll: true, reactToPointer: true, density: 6000, minNodes: 90, maxNodes: 220, linkDist: 110 });
 }
