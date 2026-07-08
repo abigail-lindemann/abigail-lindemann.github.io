@@ -35,10 +35,11 @@ function initGraphWorld(canvasId, nodeLayerId, sections, onSelect) {
   const GRID = 90;
 
   const centerEl = document.getElementById('world-center');
-  const statsEl = document.getElementById('world-stats');
 
   let W, H, ambient, secNodes, center, rafId;
-  let frameCount = 0;
+  /* Smoothed cursor: physics reacts to this, so responses feel springy
+     rather than snapping to every pointer jitter. */
+  let smx = -9999, smy = -9999;
   let mx = -9999, my = -9999;
   let hoverId = null;
 
@@ -109,6 +110,7 @@ function initGraphWorld(canvasId, nodeLayerId, sections, onSelect) {
       const rect = canvas.getBoundingClientRect();
       mx = e.clientX - rect.left;
       my = e.clientY - rect.top;
+      if (smx < -9000) { smx = mx; smy = my; }
     }, { passive: true });
   }
 
@@ -119,6 +121,17 @@ function initGraphWorld(canvasId, nodeLayerId, sections, onSelect) {
     };
   }
 
+  /* Magnetic lean: shifts a projected point toward the smoothed cursor.
+     Mutates p in place; returns the pull strength (0..1). */
+  function pullToward(p, radius, strength) {
+    const dx = smx - p.x, dy = smy - p.y;
+    const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+    const k = Math.max(0, 1 - dist / radius);
+    p.x += dx * k * strength;
+    p.y += dy * k * strength;
+    return k;
+  }
+
   /* Cursor-light factor: 1 right under the pointer, 0 beyond the radius. */
   function light(sx, sy) {
     if (!finePointer) return 0;
@@ -127,7 +140,6 @@ function initGraphWorld(canvasId, nodeLayerId, sections, onSelect) {
     return Math.max(0, 1 - dist / LIGHT_RADIUS);
   }
 
-  let t = 0;
   function drawFrame() {
     ctx.clearRect(0, 0, W, H);
 
@@ -139,10 +151,24 @@ function initGraphWorld(canvasId, nodeLayerId, sections, onSelect) {
     for (let gy = (H / 2) % GRID; gy < H; gy += GRID) { ctx.moveTo(0, gy); ctx.lineTo(W, gy); }
     ctx.stroke();
 
-    const all = ambient.map(n => ({ ...toScreen(n.x, n.y), d: n.d, accent2: n.accent2, sec: false }));
-    const secs = secNodes.map(n => ({ ...toScreen(n.x, n.y), n, sec: true }));
+    /* Motion is reactive, not ambient: small nodes bow away from the cursor
+       (a wake), while section nodes and the headshot lean toward it (a
+       magnet — which also makes them easier to hover). No idle wander. */
+    const all = ambient.map(n => {
+      const p = toScreen(n.x, n.y);
+      const dx = p.x - smx, dy = p.y - smy;
+      const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+      const k = Math.max(0, 1 - dist / 110);
+      if (k > 0) { p.x += (dx / dist) * k * k * 28 * n.d; p.y += (dy / dist) * k * k * 28 * n.d; }
+      return { ...p, d: n.d, accent2: n.accent2 };
+    });
+    const secs = secNodes.map(n => {
+      const p = toScreen(n.x, n.y);
+      const k = pullToward(p, 170, 0.24);
+      return { ...p, n, lit: k };
+    });
     const c = toScreen(center.x, center.y);
-    let edgeCount = 0;
+    pullToward(c, 220, 0.08);
 
     ctx.lineWidth = 1;
     for (let i = 0; i < all.length; i++) {
@@ -224,28 +250,18 @@ function initGraphWorld(canvasId, nodeLayerId, sections, onSelect) {
       centerEl.style.transform = `translate(${c.x}px, ${c.y}px) translate(-50%, -50%) scale(${cam.scale})`;
       centerEl.style.opacity = cam.fade;
     }
-
-    /* Live readout — real values, refreshed ~every half second. */
-    if (statsEl && frameCount % 30 === 0) {
-      statsEl.textContent = `nodes ${ambient.length + secNodes.length + 1} · edges ${edgeCount}`;
-    }
-    frameCount++;
   }
 
   function step() {
     if (canvas.offsetWidth !== W || canvas.offsetHeight !== H) resize();
-    t += 0.008;
     ambient.forEach(n => {
       n.x += n.vx * n.d; n.y += n.vy * n.d;
       if (n.x < -20) n.x = W + 20; if (n.x > W + 20) n.x = -20;
       if (n.y < -20) n.y = H + 20; if (n.y > H + 20) n.y = -20;
     });
-    secNodes.forEach(n => {
-      n.x = n.ax * W + Math.sin(t * 1.6 + n.phase) * 12;
-      n.y = n.ay * H + Math.cos(t * 1.1 + n.phase) * 10;
-    });
-    center.x = W / 2 + Math.sin(t * 0.9) * 7;
-    center.y = H * 0.46 + Math.cos(t * 0.7) * 6;
+    if (smx < -9000) { smx = mx; smy = my; }
+    smx += (mx - smx) * 0.1;
+    smy += (my - smy) * 0.1;
     drawFrame();
     rafId = requestAnimationFrame(step);
   }

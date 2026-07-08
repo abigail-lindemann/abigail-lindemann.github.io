@@ -18,16 +18,16 @@ let lastFocused = null;
 async function renderWorld() {
   const profile = await fetchJSON('profile');
 
-  /* Legend block, not a hero: name, role, and the factual one-liner. */
+  /* Legend block, not a hero: name and role only. */
   const idEl = document.getElementById('world-id');
   idEl.innerHTML = `
     <h1>Abigail Lindemann</h1>
     <p class="world-role">${escapeHTML(profile.kicker)}</p>
-    <p>${escapeHTML(profile.heroSubline)}</p>
   `;
 
   worldGraph = initGraphWorld('bg-network', 'world-nodes', WORLD_SECTIONS, openSection);
   document.getElementById('world-center').addEventListener('click', () => openSection('about'));
+  initHiddenNav();
 
   window.addEventListener('hashchange', syncFromHash);
   syncFromHash(true);
@@ -91,6 +91,24 @@ function closePanel({ fromHash }) {
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && activePanel) closePanel({});
 });
+
+/* Nav hides above the top edge; moving the pointer to the top reveals it.
+   Touch devices and keyboard users get it without hover (CSS handles both). */
+function initHiddenNav() {
+  const nav = document.getElementById('site-nav');
+  if (!nav || !window.matchMedia('(pointer: fine)').matches) return;
+
+  const hint = document.createElement('div');
+  hint.className = 'nav-peek-hint';
+  hint.setAttribute('aria-hidden', 'true');
+  hint.textContent = 'menu';
+  nav.after(hint);
+
+  window.addEventListener('pointermove', (e) => {
+    if (e.clientY < 28) nav.classList.add('shown');
+    else if (e.clientY > 150 && !nav.matches(':hover')) nav.classList.remove('shown');
+  }, { passive: true });
+}
 
 /* ---- Section content, rendered from the same JSON the subpages use ---- */
 

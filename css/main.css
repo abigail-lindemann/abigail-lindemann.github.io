@@ -875,8 +875,8 @@ textarea { resize: vertical; min-height: 120px; font-family: var(--font-mono); }
 .world-center {
   position: absolute;
   top: 0; left: 0;
-  width: 76px;
-  height: 76px;
+  width: 120px;
+  height: 120px;
   padding: 0;
   border-radius: 50%;
   border: 1px solid var(--border-hover);
@@ -893,19 +893,47 @@ textarea { resize: vertical; min-height: 120px; font-family: var(--font-mono); }
 }
 .world-center:hover, .world-center:focus-visible { border-color: var(--accent-2); }
 @media (max-width: 700px) {
-  .world-center { width: 60px; height: 60px; }
+  .world-center { width: 84px; height: 84px; }
 }
 
-/* Live graph readout: bottom-right, quiet and factual */
-.world-stats {
-  position: absolute;
-  right: var(--space-5);
-  bottom: var(--space-5);
+/* Hidden nav (homepage): parked above the viewport, slides down when the
+   pointer reaches the top edge, when it's hovered, or when focus lands in
+   it (keyboard). Touch devices keep the normal visible nav. */
+.is-world .site-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  transform: translateY(-100%);
+  transition: transform 240ms ease;
+}
+.is-world .site-nav.shown,
+.is-world .site-nav:hover,
+.is-world .site-nav:focus-within {
+  transform: none;
+}
+.is-world .world {
+  height: 100vh;
+  height: 100dvh;
+}
+.nav-peek-hint {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
   font-family: var(--font-mono);
   font-size: var(--fs-xs);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.22em;
   color: var(--text-dim);
+  opacity: 0.65;
   pointer-events: none;
+  z-index: 49;
+  transition: opacity var(--transition);
+}
+.site-nav.shown + .nav-peek-hint,
+.site-nav:hover + .nav-peek-hint,
+.site-nav:focus-within + .nav-peek-hint { opacity: 0; }
+@media (pointer: coarse) {
+  .is-world .site-nav { position: sticky; transform: none; }
+  .is-world .world { height: calc(100vh - 68px); height: calc(100dvh - 68px); }
 }
 
 /* Readable panel: solid surface, no effects inside */
