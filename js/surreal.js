@@ -8,12 +8,9 @@
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = window.matchMedia('(pointer: fine)').matches;
 
-  /* ---- Aurora: three drifting blobs, fixed behind everything ---- */
-  const aurora = document.createElement('div');
-  aurora.className = 'bg-aurora';
-  aurora.setAttribute('aria-hidden', 'true');
-  aurora.append(...[0, 1, 2].map(() => document.createElement('span')));
-  document.body.prepend(aurora);
+  /* The graph-world homepage keeps a flat, technical backdrop — no aurora
+     blobs there. Reading pages keep the subtle wash. */
+  const isWorld = document.body.classList.contains('is-world');
 
   /* ---- Ambient network on pages that don't already have one ---- */
   if (typeof initBgNetwork === 'function' && !document.getElementById('bg-network')) {
@@ -21,8 +18,17 @@
     canvas.className = 'bg-network';
     canvas.id = 'bg-network';
     canvas.setAttribute('aria-hidden', 'true');
-    aurora.after(canvas);
+    document.body.prepend(canvas);
     initBgNetwork('bg-network');
+  }
+
+  /* ---- Aurora: drifting blobs, prepended last so they sit behind the canvas ---- */
+  if (!isWorld) {
+    const aurora = document.createElement('div');
+    aurora.className = 'bg-aurora';
+    aurora.setAttribute('aria-hidden', 'true');
+    aurora.append(...[0, 1, 2].map(() => document.createElement('span')));
+    document.body.prepend(aurora);
   }
 
   /* ---- Cursor glow: lerps toward the pointer so it trails dreamily ---- */

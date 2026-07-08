@@ -30,9 +30,15 @@ function initGraphWorld(canvasId, nodeLayerId, sections, onSelect) {
 
   const LINK_DIST = 120;
   const SEC_LINK_DIST = 160;
+  const CENTER_LINK_DIST = 190;
   const LIGHT_RADIUS = 210;
+  const GRID = 90;
 
-  let W, H, ambient, secNodes, rafId;
+  const centerEl = document.getElementById('world-center');
+  const statsEl = document.getElementById('world-stats');
+
+  let W, H, ambient, secNodes, center, rafId;
+  let frameCount = 0;
   let mx = -9999, my = -9999;
   let hoverId = null;
 
@@ -68,6 +74,8 @@ function initGraphWorld(canvasId, nodeLayerId, sections, onSelect) {
       d: 0.35 + Math.random() * 0.65,
       accent2: Math.random() < 0.18,
     }));
+
+    center = { x: W / 2, y: H * 0.46 };
 
     const anchors = anchorsFor(W);
     secNodes = sections.map((s, i) => ({
@@ -122,8 +130,19 @@ function initGraphWorld(canvasId, nodeLayerId, sections, onSelect) {
   let t = 0;
   function drawFrame() {
     ctx.clearRect(0, 0, W, H);
+
+    /* Chart-paper grid: static, faint, behind everything. */
+    ctx.strokeStyle = `rgba(${textRgb}, 0.045)`;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let gx = (W / 2) % GRID; gx < W; gx += GRID) { ctx.moveTo(gx, 0); ctx.lineTo(gx, H); }
+    for (let gy = (H / 2) % GRID; gy < H; gy += GRID) { ctx.moveTo(0, gy); ctx.lineTo(W, gy); }
+    ctx.stroke();
+
     const all = ambient.map(n => ({ ...toScreen(n.x, n.y), d: n.d, accent2: n.accent2, sec: false }));
     const secs = secNodes.map(n => ({ ...toScreen(n.x, n.y), n, sec: true }));
+    const c = toScreen(center.x, center.y);
+    let edgeCount = 0;
 
     ctx.lineWidth = 1;
     for (let i = 0; i < all.length; i++) {
@@ -138,6 +157,21 @@ function initGraphWorld(canvasId, nodeLayerId, sections, onSelect) {
           if (alpha > 0.015) {
             ctx.strokeStyle = `rgba(${accentRgb}, ${alpha})`;
             ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+            edgeCount++;
+          }
+        }
+      }
+      /* Ambient-to-center edges: the headshot is a node like any other. */
+      {
+        const dx = a.x - c.x, dy = a.y - c.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < CENTER_LINK_DIST && dist > 44) {
+          const lit = (light(a.x, a.y) + light(c.x, c.y)) / 2;
+          const alpha = (1 - dist / CENTER_LINK_DIST) * (0.12 + 0.4 * lit) * cam.fade;
+          if (alpha > 0.015) {
+            ctx.strokeStyle = `rgba(${accentRgb}, ${alpha})`;
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(c.x, c.y); ctx.stroke();
+            edgeCount++;
           }
         }
       }
@@ -151,6 +185,7 @@ function initGraphWorld(canvasId, nodeLayerId, sections, onSelect) {
           if (alpha > 0.015) {
             ctx.strokeStyle = `rgba(${accent2Rgb}, ${alpha})`;
             ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(s.x, s.y); ctx.stroke();
+            edgeCount++;
           }
         }
       }
@@ -184,6 +219,17 @@ function initGraphWorld(canvasId, nodeLayerId, sections, onSelect) {
       btn.style.transform = `translate(${s.x}px, ${s.y}px) translate(-50%, -50%)`;
       btn.style.opacity = cam.fade;
     });
+
+    if (centerEl) {
+      centerEl.style.transform = `translate(${c.x}px, ${c.y}px) translate(-50%, -50%) scale(${cam.scale})`;
+      centerEl.style.opacity = cam.fade;
+    }
+
+    /* Live readout — real values, refreshed ~every half second. */
+    if (statsEl && frameCount % 30 === 0) {
+      statsEl.textContent = `nodes ${ambient.length + secNodes.length + 1} · edges ${edgeCount}`;
+    }
+    frameCount++;
   }
 
   function step() {
@@ -198,6 +244,8 @@ function initGraphWorld(canvasId, nodeLayerId, sections, onSelect) {
       n.x = n.ax * W + Math.sin(t * 1.6 + n.phase) * 12;
       n.y = n.ay * H + Math.cos(t * 1.1 + n.phase) * 10;
     });
+    center.x = W / 2 + Math.sin(t * 0.9) * 7;
+    center.y = H * 0.46 + Math.cos(t * 0.7) * 6;
     drawFrame();
     rafId = requestAnimationFrame(step);
   }

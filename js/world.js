@@ -18,14 +18,16 @@ let lastFocused = null;
 async function renderWorld() {
   const profile = await fetchJSON('profile');
 
+  /* Legend block, not a hero: name, role, and the factual one-liner. */
   const idEl = document.getElementById('world-id');
   idEl.innerHTML = `
-    <h1>${escapeHTML(profile.tagline)}</h1>
-    <p>${escapeHTML(profile.kicker)}</p>
-    <p class="world-hint">Follow the light — or use the nav.</p>
+    <h1>Abigail Lindemann</h1>
+    <p class="world-role">${escapeHTML(profile.kicker)}</p>
+    <p>${escapeHTML(profile.heroSubline)}</p>
   `;
 
   worldGraph = initGraphWorld('bg-network', 'world-nodes', WORLD_SECTIONS, openSection);
+  document.getElementById('world-center').addEventListener('click', () => openSection('about'));
 
   window.addEventListener('hashchange', syncFromHash);
   syncFromHash(true);
