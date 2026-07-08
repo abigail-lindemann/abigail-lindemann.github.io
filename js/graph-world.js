@@ -183,7 +183,6 @@ function initGraphWorld(canvasId, nodeLayerId, sections, onSelect) {
           if (alpha > 0.015) {
             ctx.strokeStyle = `rgba(${accentRgb}, ${alpha})`;
             ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
-            edgeCount++;
           }
         }
       }
@@ -197,7 +196,6 @@ function initGraphWorld(canvasId, nodeLayerId, sections, onSelect) {
           if (alpha > 0.015) {
             ctx.strokeStyle = `rgba(${accentRgb}, ${alpha})`;
             ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(c.x, c.y); ctx.stroke();
-            edgeCount++;
           }
         }
       }
@@ -211,7 +209,6 @@ function initGraphWorld(canvasId, nodeLayerId, sections, onSelect) {
           if (alpha > 0.015) {
             ctx.strokeStyle = `rgba(${accent2Rgb}, ${alpha})`;
             ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(s.x, s.y); ctx.stroke();
-            edgeCount++;
           }
         }
       }
