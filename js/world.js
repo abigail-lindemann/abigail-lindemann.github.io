@@ -69,6 +69,7 @@ async function showPanel(id, { instant }) {
   backdrop.classList.add('open');
   panel.classList.add('open');
   panel.setAttribute('aria-hidden', 'false');
+  document.getElementById('world-id')?.classList.add('panel-open');
   activePanel = id;
 
   document.getElementById('panel-close').addEventListener('click', () => closePanel({}));
@@ -82,6 +83,7 @@ function closePanel({ fromHash }) {
   backdrop.classList.remove('open');
   panel.classList.remove('open');
   panel.setAttribute('aria-hidden', 'true');
+  document.getElementById('world-id')?.classList.remove('panel-open');
   activePanel = null;
   if (!fromHash) history.pushState(null, '', window.location.pathname);
   if (worldGraph) worldGraph.flyBack();

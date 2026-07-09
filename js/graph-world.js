@@ -50,9 +50,12 @@ function initGraphWorld(canvasId, nodeLayerId, sections, onSelect) {
      Narrow screens restack into a loose column. */
   function anchorsFor(w) {
     if (w < 700) {
+      /* Keeps every node (and its rightward label) clear of two dead
+         zones: the center headshot (~x:[0.39,0.61] y:[0.41,0.51]) and
+         the bottom-left corner legend (~x:[0,0.73] y:[0.88,1]). */
       return [
-        { x: 0.30, y: 0.16 }, { x: 0.68, y: 0.32 }, { x: 0.34, y: 0.50 },
-        { x: 0.66, y: 0.68 }, { x: 0.38, y: 0.85 },
+        { x: 0.26, y: 0.12 }, { x: 0.68, y: 0.26 }, { x: 0.26, y: 0.60 },
+        { x: 0.68, y: 0.72 }, { x: 0.44, y: 0.82 },
       ];
     }
     return [

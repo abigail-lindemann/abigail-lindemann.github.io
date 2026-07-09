@@ -847,6 +847,14 @@ textarea { resize: vertical; min-height: 120px; font-family: var(--font-mono); }
   padding-left: var(--space-4);
   border-left: 2px solid var(--accent);
   pointer-events: none;
+  opacity: 1;
+  transition: opacity 220ms ease;
+}
+/* Hidden while a panel is open — on short mobile viewports the panel can
+   reach close to the bottom edge where this legend sits, and it isn't
+   relevant reading while a panel is up anyway. */
+.world-id.panel-open {
+  opacity: 0;
 }
 .world-id h1 {
   font-family: var(--font-body);
