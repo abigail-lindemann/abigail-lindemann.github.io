@@ -119,6 +119,17 @@ const PROJECT_MOTIFS = {
       <path d="M228,22 L246,32 L228,42" style="fill:none; stroke:var(--accent); stroke-width:2;"/>
     </svg>
   `,
+  /* Peer Practice: two speech bubbles (roleplay) around a "presence ring" (the project's own motif) */
+  chat: `
+    <svg viewBox="0 0 280 64" class="motif" aria-hidden="true">
+      <path d="M18,14 h56 a6,6 0 0 1 6,6 v16 a6,6 0 0 1 -6,6 h-34 l-12,11 v-11 h-10 a6,6 0 0 1 -6,-6 v-16 a6,6 0 0 1 6,-6 Z"
+        style="fill:none; stroke:var(--accent); stroke-width:1.5; opacity:0.75;"/>
+      <path d="M182,18 h62 a6,6 0 0 1 6,6 v14 a6,6 0 0 1 -6,6 h-10 v11 l-13,-11 h-39 a6,6 0 0 1 -6,-6 v-14 a6,6 0 0 1 6,-6 Z"
+        style="fill:none; stroke:var(--accent-2); stroke-width:1.5; opacity:0.75;"/>
+      <circle cx="140" cy="32" r="9" style="fill:none; stroke:var(--accent-2); stroke-width:1.5;"/>
+      <circle cx="140" cy="32" r="3.5" style="fill:var(--accent-2);"/>
+    </svg>
+  `,
 };
 
 function projectMotifSVG(motif) {

@@ -9,10 +9,10 @@
     "stat": { "value": "1,139", "label": "block groups mapped" },
     "detail": [
       "Integrated 5 public datasets — Census ACS, USDA Food Desert Atlas, USDA SNAP retailers, and food bank / WIC clinic locations — across ~1,139 Bexar County block groups.",
-      "Built a composite housing insecurity score from renter cost burden, severe cost burden, and overcrowding.",
+      "Built a composite housing insecurity score from renter cost burden, severe cost burden (>50% of income on housing), and overcrowding.",
       "Used a KD-tree spatial index to compute food-access distances at 1-mile and 0.5-mile thresholds.",
       "Produced a 4-quadrant overlap map classifying every block group by housing and food-access status.",
-      "Automated data refreshes with 3 GitHub Actions pipelines, keeping ongoing maintenance under 1 hour a year.",
+      "Automated 3 GitHub Actions pipelines — annual ACS/USDA refresh, monthly grocery-store re-pull, and continuous site deploy — keeping ongoing maintenance under 1 hour a year.",
       "Shipped as a live interactive Leaflet.js map on GitHub Pages."
     ],
     "tags": [
@@ -21,7 +21,7 @@
       { "label": "GitHub Actions", "cat": "web" },
       { "label": "Data Visualization", "cat": "viz" }
     ],
-    "links": { "live": "", "repo": "" },
+    "links": { "live": "https://abigail-lindemann.github.io/sa-housing-food-insecurity/", "repo": "https://github.com/abigail-lindemann/sa-housing-food-insecurity" },
     "featured": true,
     "status": "complete"
   },
@@ -34,7 +34,7 @@
     "motif": "bars",
     "stat": { "value": "75", "label": "universities benchmarked" },
     "detail": [
-      "Analyzed 35,000+ data points across 467 metrics from 75 universities.",
+      "Cleaned and structured 35,000+ data points across 467 metrics from 75 universities using advanced Excel (XLOOKUP, PivotTables, Text-to-Columns) to ensure data integrity for benchmarking.",
       "Ran gap analysis against 38 peer schools and 26 aspirant schools.",
       "Built 12 Power BI visualizations presented to senior leadership."
     ],
@@ -56,9 +56,9 @@
     "motif": "trend",
     "stat": { "value": "192", "label": "performance records analyzed" },
     "detail": [
-      "Analyzed 192 performance records from the 2025 STAC Championship in Excel.",
-      "Built 5 Tableau visualizations projecting placement for the upcoming SAA conference transition.",
-      "Used by the coaching staff for planning."
+      "Cleaned and analyzed 192 performance records from the 2025 STAC Championship in Excel.",
+      "Built 5 Tableau visualizations modeling competitive positioning against future conference opponents.",
+      "Gave the coaching staff actionable insights for recruitment and training focus during the SAA transition."
     ],
     "tags": [
       { "label": "Sports Analytics", "cat": "research" },
@@ -71,15 +71,16 @@
   {
     "slug": "institutional-research-publication-pipeline",
     "title": "Institutional Research Publication Pipeline",
-    "date": "2026",
-    "displayDate": "Ongoing",
-    "summary": "A data pipeline pulling and cleaning ~1.2 million works from the OpenAlex API to compare Trinity's research output against 93 peer and aspirant institutions.",
+    "date": "2026-06",
+    "displayDate": "Summer 2026",
+    "summary": "A data pipeline pulling and cleaning ~1.2 million works from the OpenAlex API to compare Trinity's research output against 99 peer and aspirant institutions.",
     "motif": "flow",
     "stat": { "value": "1.2M", "label": "works in the pipeline" },
     "detail": [
-      "Built a pipeline pulling publication data from the OpenAlex API.",
-      "Cleaned and loaded ~1.2 million works into a database comparing Trinity against 93 peer and aspirant institutions.",
-      "Planned: an interactive web app for deans, chairs, and faculty, plus autonomous scheduled updates.",
+      "Built a data pipeline pulling publication records from the OpenAlex API across 99 peer and aspirant institutions into a dozen-table database of 1.2 million works.",
+      "Vibe-coded an interactive visualization app with Claude so university decision-makers can explore institution- and department-level publication rankings — applying Discernment to check generated code against the spec and Diligence to verify the underlying data before treating any output as reliable.",
+      "Caught a data-quality issue when early results showed implausible department rankings (Chemistry appearing as one of Trinity's lowest-publishing departments, which was untrue); traced it to OpenAlex's subject-classification tags inflating some departments and suppressing others.",
+      "Rebuilt department-level classification using Scopus journal rankings instead — classifying each work by the journal it was published in rather than OpenAlex's tags — to restore accurate department comparisons.",
       "Presenting at Trinity's summer research symposium in late July 2026."
     ],
     "tags": [
@@ -90,5 +91,31 @@
     "links": { "live": "", "repo": "" },
     "featured": true,
     "status": "ongoing"
+  },
+  {
+    "slug": "peer-practice-training-simulator",
+    "title": "Peer Practice: AI Training Simulator for Peer Supporters",
+    "date": "2026-07",
+    "displayDate": "July 2026",
+    "summary": "A full-stack simulator where volunteer peer supporters practice conversations with an AI-played veteran and get structured, rubric-based feedback afterward.",
+    "motif": "chat",
+    "stat": { "value": "90%", "label": "lower per-session API cost" },
+    "detail": [
+      "Built a full-stack training simulator with Next.js, TypeScript, and the Anthropic API — the AI plays the veteran seeking support, never the supporter, since peer support is a human skill that has to be practiced, not automated.",
+      "Applied the AI Fluency 4D framework (Delegation, Description, Discernment, Diligence): scoped what to hand to Claude versus build directly, refined prompts through an iterative description-discernment loop, and reviewed every generated output against the spec before shipping.",
+      "Designed a six-scenario training curriculum, including two crisis-escalation drills, with safety constraints in the persona system prompt that block any means/method content even under direct questioning.",
+      "Implemented a two-pass LLM architecture: a streaming roleplay engine (SSE) plus a separate structured-JSON evaluator that scores trainees against a support rubric with quoted evidence and coaching suggestions.",
+      "Reduced per-session API cost by ~90% using Anthropic prompt caching, with configurable spend guardrails for cost control.",
+      "Designed a custom visual identity — typography, color tokens, and a signature 'presence ring' motif — prioritizing calm, non-clinical UX over conventional dashboard/chat patterns."
+    ],
+    "tags": [
+      { "label": "Next.js", "cat": "web" },
+      { "label": "Prompt Engineering", "cat": "research" },
+      { "label": "AI-Assisted Dev", "cat": "web" },
+      { "label": "UX Design", "cat": "viz" }
+    ],
+    "links": { "live": "", "repo": "https://github.com/abigail-lindemann/peer-practice-simulator" },
+    "featured": false,
+    "status": "complete"
   }
 ]

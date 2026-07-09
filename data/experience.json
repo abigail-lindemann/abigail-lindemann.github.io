@@ -6,11 +6,10 @@
     "dates": "Jan 2025–Present",
     "current": true,
     "bullets": [
-      "Provides frontline technical support for 3,000+ students and faculty.",
-      "Resolves 70+ tickets with a 60% first-contact resolution rate.",
-      "Maintains the team's internal knowledge base.",
-      "Builds the weekly schedule for a 25-person student team, reducing scheduling conflicts by 45%.",
-      "Maintains a 5-star customer satisfaction rating."
+      "Serves as a frontline technical resource for 3,000+ students and faculty, resolving 70+ hardware and software tickets with a 60% first-contact resolution rate to minimize academic and administrative downtime.",
+      "Maintains the team's internal knowledge base documentation to reduce repeat ticket volume on common hardware and software issues.",
+      "Builds the weekly schedule for a 25-person student team, optimizing shift coverage for peak demand and reducing scheduling conflicts by 45%.",
+      "Provides Tier 1 technical support with a 5-star customer satisfaction rating, de-escalating user frustrations and resolving issues on first contact."
     ]
   },
   {
@@ -21,7 +20,9 @@
     "current": true,
     "note": "TUWIC welcomes students of all genders across majors.",
     "bullets": [
-      "Leads TUWIC's flagship event, TECH Camp — a weekend camp bringing 20–30 middle school girls to campus to learn coding and explore STEM careers."
+      "Co-leads TECH Camp, TUWIC's flagship outreach event bringing ~25 middle school girls to campus to learn coding fundamentals and explore computer science careers.",
+      "Designs and leads instruction on an introductory Scratch coding curriculum, teaching computational logic fundamentals to all participants.",
+      "Planning to expand the program with a CyberTexas cybersecurity curriculum partnership and a new Python-focused weekend track for high schoolers."
     ]
   },
   {
@@ -31,7 +32,7 @@
     "dates": "Spring 2026",
     "current": false,
     "bullets": [
-      "Owned all volunteer operations for TECH Camp: recruitment, working-with-minors compliance with Risk Management/HR, shift scheduling, and day-of delegation."
+      "Owned all volunteer operations for TECH Camp end-to-end: recruiting from Trinity's CS community, coordinating background checks and minor-safety trainings with Risk Management and HR, building the shift schedule, and delegating event-day tasks."
     ]
   }
 ]
