@@ -99,13 +99,12 @@
     "displayDate": "July 2026",
     "summary": "A full-stack simulator where volunteer peer supporters practice conversations with an AI-played veteran and get structured, rubric-based feedback afterward.",
     "motif": "chat",
-    "stat": { "value": "90%", "label": "lower per-session API cost" },
     "detail": [
       "Built a full-stack training simulator with Next.js, TypeScript, and the Anthropic API — the AI plays the veteran seeking support, never the supporter, since peer support is a human skill that has to be practiced, not automated.",
       "Applied the AI Fluency 4D framework (Delegation, Description, Discernment, Diligence): scoped what to hand to Claude versus build directly, refined prompts through an iterative description-discernment loop, and reviewed every generated output against the spec before shipping.",
       "Designed a six-scenario training curriculum, including two crisis-escalation drills, with safety constraints in the persona system prompt that block any means/method content even under direct questioning.",
       "Implemented a two-pass LLM architecture: a streaming roleplay engine (SSE) plus a separate structured-JSON evaluator that scores trainees against a support rubric with quoted evidence and coaching suggestions.",
-      "Reduced per-session API cost by ~90% using Anthropic prompt caching, with configurable spend guardrails for cost control.",
+      "Used Anthropic prompt caching to keep per-turn cost low as conversations grow, with a configurable session cap as a spend guardrail.",
       "Designed a custom visual identity — typography, color tokens, and a signature 'presence ring' motif — prioritizing calm, non-clinical UX over conventional dashboard/chat patterns."
     ],
     "tags": [
