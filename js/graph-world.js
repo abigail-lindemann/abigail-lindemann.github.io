@@ -30,7 +30,8 @@ function initGraphWorld(canvasId, nodeLayerId, sections, onSelect) {
 
   const LINK_DIST = 120;
   const SEC_LINK_DIST = 160;
-  const CENTER_LINK_DIST = 190;
+  const CENTER_LINK_DIST = 220;
+  const CENTER_CLEARANCE = 90; /* keeps edge stubs from poking out behind the headshot circle (radius 84) */
   const LIGHT_RADIUS = 210;
   const GRID = 90;
 
@@ -193,7 +194,7 @@ function initGraphWorld(canvasId, nodeLayerId, sections, onSelect) {
       {
         const dx = a.x - c.x, dy = a.y - c.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < CENTER_LINK_DIST && dist > 44) {
+        if (dist < CENTER_LINK_DIST && dist > CENTER_CLEARANCE) {
           const lit = (light(a.x, a.y) + light(c.x, c.y)) / 2;
           const alpha = (1 - dist / CENTER_LINK_DIST) * (0.12 + 0.4 * lit) * cam.fade;
           if (alpha > 0.015) {

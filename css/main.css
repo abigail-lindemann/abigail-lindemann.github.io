@@ -184,25 +184,26 @@ section { padding-block: var(--space-8); }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 68px;
+  height: 76px;
 }
 .brand {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: var(--fs-md);
+  font-size: var(--fs-lg);
   letter-spacing: -0.01em;
 }
 .brand span { color: var(--accent); }
 .nav-links {
   display: flex;
-  gap: var(--space-6);
+  gap: var(--space-7);
   align-items: center;
 }
 .nav-links a {
-  font-size: var(--fs-sm);
+  font-size: var(--fs-md);
+  font-weight: 500;
   color: var(--text-muted);
   position: relative;
-  padding-block: var(--space-1);
+  padding-block: var(--space-2);
   transition: color var(--transition);
 }
 .nav-links a:hover,
@@ -227,7 +228,7 @@ section { padding-block: var(--space-8); }
   .nav-toggle { display: block; }
   .nav-links {
     position: absolute;
-    top: 68px; left: 0; right: 0;
+    top: 76px; left: 0; right: 0;
     background: var(--bg-raise);
     border-bottom: 1px solid var(--border);
     flex-direction: column;
@@ -801,8 +802,8 @@ textarea { resize: vertical; min-height: 120px; font-family: var(--font-mono); }
 .is-world { overflow: hidden; }
 .world {
   position: relative;
-  height: calc(100vh - 68px);
-  height: calc(100dvh - 68px);
+  height: calc(100vh - 76px);
+  height: calc(100dvh - 76px);
 }
 .world-canvas {
   position: absolute;
@@ -883,8 +884,8 @@ textarea { resize: vertical; min-height: 120px; font-family: var(--font-mono); }
 .world-center {
   position: absolute;
   top: 0; left: 0;
-  width: 120px;
-  height: 120px;
+  width: 168px;
+  height: 168px;
   padding: 0;
   border-radius: 50%;
   border: 1px solid var(--border-hover);
@@ -901,7 +902,7 @@ textarea { resize: vertical; min-height: 120px; font-family: var(--font-mono); }
 }
 .world-center:hover, .world-center:focus-visible { border-color: var(--accent-2); }
 @media (max-width: 700px) {
-  .world-center { width: 84px; height: 84px; }
+  .world-center { width: 116px; height: 116px; }
 }
 
 /* Hidden nav (homepage): parked above the viewport, slides down when the
