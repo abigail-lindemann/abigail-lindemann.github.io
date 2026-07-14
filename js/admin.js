@@ -165,26 +165,37 @@ async function initProfileTab() {
   const profile = await fetchJSON('profile');
 
   mount.innerHTML = `
+    <p class="hint">Fields below are grouped by where they actually show up on the live site — the homepage is a graph now, not a scrolling page, so a few older fields don't render anywhere anymore. They're kept (and still save normally) in case you want them back for something later.</p>
+
+    <h3>Homepage legend (bottom-left corner)</h3>
     <div class="field"><label>Headshot photo path (e.g. /images/headshot.jpg)</label><input id="p-photo" value="${escapeHTML(profile.photo || '')}"></div>
-    <div class="field"><label>Tagline</label><input id="p-tagline" value="${escapeHTML(profile.tagline)}"></div>
-    <div class="field"><label>Tagline alternates (one per line)</label><textarea id="p-alts">${escapeHTML((profile.taglineAlternates || []).join('\n'))}</textarea></div>
-    <div class="field"><label>Hero subline</label><input id="p-focus" value="${escapeHTML(profile.heroSubline || '')}"></div>
-    <div class="field"><label>Kicker</label><input id="p-kicker" value="${escapeHTML(profile.kicker)}"></div>
+    <div class="field"><label>Kicker (role line under your name)</label><input id="p-kicker" value="${escapeHTML(profile.kicker)}"></div>
+
+    <h3 class="mt-6">About panel</h3>
     <div class="field"><label>About paragraphs (one per line)</label><textarea id="p-about" rows="6">${escapeHTML((profile.about.paragraphs || []).join('\n'))}</textarea></div>
     <div class="field"><label>AI note</label><textarea id="p-ainote">${escapeHTML(profile.about.aiNote || '')}</textarea></div>
     <div class="field"><label>Closing line</label><input id="p-closing" value="${escapeHTML(profile.about.closing || '')}"></div>
-    <div class="field"><label>Aspirations heading</label><input id="p-asp-h" value="${escapeHTML(profile.aspirations.heading)}"></div>
-    <div class="field"><label>Aspirations body</label><textarea id="p-asp-b">${escapeHTML(profile.aspirations.body)}</textarea></div>
     <div class="field"><label>Personal bits (one per line)</label><textarea id="p-bits">${escapeHTML((profile.personalBits || []).join('\n'))}</textarea></div>
+
+    <h3 class="mt-6">Contact panel</h3>
     <div class="field-row">
       <div class="field"><label>Email</label><input id="p-email" value="${escapeHTML(profile.links.email)}"></div>
       <div class="field"><label>LinkedIn</label><input id="p-linkedin" value="${escapeHTML(profile.links.linkedin)}"></div>
       <div class="field"><label>GitHub</label><input id="p-github" value="${escapeHTML(profile.links.github)}"></div>
     </div>
+
+    <h3 class="mt-6">Not currently shown on the site</h3>
+    <p class="hint">These were used by the old scrolling homepage (hero tagline, "where this is going" section, featured-projects list). The graph homepage doesn't read them right now.</p>
+    <div class="field"><label>Tagline (unused)</label><input id="p-tagline" value="${escapeHTML(profile.tagline || '')}"></div>
+    <div class="field"><label>Tagline alternates (unused, one per line)</label><textarea id="p-alts">${escapeHTML((profile.taglineAlternates || []).join('\n'))}</textarea></div>
+    <div class="field"><label>Hero subline (unused)</label><input id="p-focus" value="${escapeHTML(profile.heroSubline || '')}"></div>
+    <div class="field"><label>Aspirations heading (unused)</label><input id="p-asp-h" value="${escapeHTML(profile.aspirations?.heading || '')}"></div>
+    <div class="field"><label>Aspirations body (unused)</label><textarea id="p-asp-b">${escapeHTML(profile.aspirations?.body || '')}</textarea></div>
     <div class="field-row">
-      <div class="field"><label>Featured project slugs (comma separated)</label><input id="p-featured" value="${escapeHTML((profile.home.featuredProjectSlugs || []).join(', '))}"></div>
-      <div class="field"><label>Latest posts count</label><input id="p-postcount" type="number" min="1" value="${profile.home.latestPostsCount || 3}"></div>
+      <div class="field"><label>Featured project slugs (unused, comma separated)</label><input id="p-featured" value="${escapeHTML((profile.home?.featuredProjectSlugs || []).join(', '))}"></div>
+      <div class="field"><label>Latest posts count (unused)</label><input id="p-postcount" type="number" min="1" value="${profile.home?.latestPostsCount || 3}"></div>
     </div>
+
     <div class="save-bar">
       <button class="btn btn-primary" id="p-save">Save profile</button>
       <div id="p-status"></div>
@@ -322,6 +333,7 @@ async function initProjectsTab() {
             <option value="bars" ${p.motif === 'bars' ? 'selected' : ''}>Comparison radar</option>
             <option value="trend" ${p.motif === 'trend' ? 'selected' : ''}>Pool lanes</option>
             <option value="flow" ${p.motif === 'flow' ? 'selected' : ''}>Paper pipeline</option>
+            <option value="chat" ${p.motif === 'chat' ? 'selected' : ''}>Chat bubbles + presence ring</option>
           </select>
         </div>
       </div>

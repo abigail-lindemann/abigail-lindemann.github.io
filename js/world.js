@@ -25,6 +25,9 @@ async function renderWorld() {
     <p class="world-role">${escapeHTML(profile.kicker)}</p>
   `;
 
+  const centerImg = document.querySelector('#world-center img');
+  if (centerImg && profile.photo) centerImg.src = profile.photo;
+
   worldGraph = initGraphWorld('bg-network', 'world-nodes', WORLD_SECTIONS, openSection);
   document.getElementById('world-center').addEventListener('click', () => openSection('about'));
   initHiddenNav();
