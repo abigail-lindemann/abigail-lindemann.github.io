@@ -88,7 +88,7 @@ function initGraphWorld(canvasId, nodeLayerId, sections, onSelect) {
       ax: anchors[i].x, ay: anchors[i].y,
       x: anchors[i].x * W, y: anchors[i].y * H,
       phase: Math.random() * Math.PI * 2,
-      r: 6,
+      r: 10,
     }));
   }
 

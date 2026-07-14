@@ -818,20 +818,20 @@ textarea { resize: vertical; min-height: 120px; font-family: var(--font-mono); }
   position: absolute;
   top: 0; left: 0;
   transform: translate(-50%, -50%);
-  width: 48px;
-  height: 48px;
+  width: 60px;
+  height: 60px;
   background: none;
   border: none;
   cursor: pointer;
 }
 .world-node-label {
   position: absolute;
-  left: 38px;
+  left: 46px;
   top: 50%;
   transform: translateY(-50%);
   font-family: var(--font-mono);
-  font-size: var(--fs-xs);
-  letter-spacing: 0.18em;
+  font-size: var(--fs-sm);
+  letter-spacing: 0.14em;
   white-space: nowrap;
   color: var(--text-muted);
   transition: color var(--transition);
